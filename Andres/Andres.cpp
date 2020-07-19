@@ -98,6 +98,7 @@ private:
     s.SetRemoteHost("localhost");
     s.SetRemotePort(currentPort);
     int retcode = s.SetConnected(true);
+    if (retcode) cout << "Port: " << currentPort << " Error [" << s.GetLastErrorCode() << "] " << s.GetLastError() << endl;
     s.Reset();
     return (retcode ? retcode : 0);
   }
@@ -123,6 +124,9 @@ int main()
   Worker worker1;
   Worker worker2;
   Worker worker3;
+  Worker worker4;
+  Worker worker5;
+  Worker worker6;
 
   std::clock_t start;
   double duration;
@@ -130,21 +134,15 @@ int main()
   thread t1(worker1);
   thread t2(worker2);
   thread t3(worker3);
-  thread t4(worker1);
-  thread t5(worker2);
-  thread t6(worker3);
-  thread t7(worker1);
-  thread t8(worker2);
-  thread t9(worker3);
+  thread t4(worker4);
+  thread t5(worker5);
+  thread t6(worker6);
   t1.join();
   t2.join();
   t3.join();
   t4.join();
   t5.join();
   t6.join();
-  t7.join();
-  t8.join();
-  t9.join();
   duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
   std::cout << "Duration: " << duration << '\n';
 
